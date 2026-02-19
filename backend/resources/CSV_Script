@@ -1,0 +1,56 @@
+from docx import Document
+import re
+import csv
+
+doc = Document("Resource Directory 2024_202409031114431447.docx") ##change if doc changes
+
+
+phone_pattern = re.compile(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}')
+website_pattern = re.compile(r'https?://[^\s]+|www\.[^\s]+')
+
+resources = []
+current = {"name": "", "phone": "", "website": "", "address": "", "description": ""}
+
+def flush_current():
+    if current["name"]:
+        resources.append(current.copy())
+        for key in current:
+            current[key] = ""
+
+for para in doc.paragraphs:
+    text = para.text.strip()
+    if not text:
+        continue
+
+    if text.isupper() and len(text.split()) < 10:
+        flush_current()
+        current["name"] = text
+        continue
+
+    if not current["website"]:
+        website_match = website_pattern.search(text)
+        if website_match:
+            current["website"] = website_match.group()
+            continue
+
+    if not current["phone"]:
+        phone_match = phone_pattern.search(text)
+        if phone_match:
+            current["phone"] = phone_match.group()
+            continue
+
+    if not current["address"]:
+        if any(word in text.lower() for word in ["street", "st.", "road", "rd", "ave", "boulevard", "blvd", "drive", "dr", "lane", "ln", "highway", "hwy"]) and any(c.isdigit() for c in text):
+            current["address"] = text
+            continue
+
+    current["description"] += " " + text if current["description"] else text
+
+flush_current()
+
+with open("cleaned_resources_with_websites.csv", "w", newline="", encoding="utf-8") as csvfile:
+    fieldnames = ["name", "phone", "address", "website", "description"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    for res in resources:
+        writer.writerow(res)
