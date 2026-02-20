@@ -8,7 +8,8 @@ const ResourceDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://10.0.2.2:8000/api/resources/${id}/`) // emulator 
+    fetch(`http://127.0.0.1:8000/api/resources/${id}/`)
+    // fetch(`http://10.0.2.2:8000/api/resources/${id}/`) // emulator 
     // fetch(`http://<your-local-ip>:8000/api/resources/${id}/`)
       .then(res => res.json())
       .then(data => {

@@ -1,7 +1,8 @@
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,33 +12,14 @@ import {
 const CategoryResourceList = () => {
   const { category } = useLocalSearchParams();
   const router = useRouter();
-  const navigation = useNavigation();
 
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Custom back button to force return to /Categories
-  /* useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() =>
-            router.push({
-              pathname: "/Categories",
-              params: { audience },
-            })
-          }
-          style={{ paddingLeft: 10 }}
-        >
-          <Text style={{ color: "#007aff", fontSize: 16 }}>Back</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, router, audience]);*/
-
   useEffect(() => {
-    const url = new URL("http://10.0.2.2:8000/api/resources/");
+    const url = new URL("http://127.0.0.1:8000/api/resources/");
     if (category) url.searchParams.append("category", category);
+
     fetch(url.toString())
       .then((res) => res.json())
       .then((data) => {
@@ -58,25 +40,29 @@ const CategoryResourceList = () => {
     );
   }
 
+  const title =
+    (category?.charAt(0).toUpperCase() + category?.slice(1) || "All") +
+    " Resources";
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {category?.charAt(0).toUpperCase() + category?.slice(1)} Resources
-      </Text>
-
-      {resources.map((res) => (
-        <TouchableOpacity
-          key={res.id}
-          style={styles.card}
-          onPress={() => router.push(`/Resources/${res.id}`)}
-        >
-          <Text style={styles.cardText}>{res.name}</Text>
-        </TouchableOpacity>
-      ))}
-
-      {resources.length === 0 && (
-        <Text style={styles.noData}>No resources found in this category.</Text>
-      )}
+      <FlatList
+        data={resources}
+        keyExtractor={(item) => String(item.id)}
+        contentContainerStyle={{ paddingBottom: 20 }}
+        ListHeaderComponent={<Text style={styles.title}>{title}</Text>}
+        ListEmptyComponent={
+          <Text style={styles.noData}>No resources found in this category.</Text>
+        }
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push(`/Resources/${item.id}`)}
+          >
+            <Text style={styles.cardText}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
