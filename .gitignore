@@ -24,3 +24,6 @@ Thumbs.db
 .expo/
 Startup.txt
 Workspace.code-workspace
+
+*.lnk
+backend/resources_fixture_utf8.json
