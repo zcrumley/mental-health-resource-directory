@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from resources.views import ResourceViewSet
+from resources.views import ResourceViewSet, categories_list
 
 router = routers.DefaultRouter()
 router.register(r'resources', ResourceViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/categories/', categories_list),
     path('api/', include(router.urls)),
+    
 ]

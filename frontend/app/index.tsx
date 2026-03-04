@@ -11,7 +11,7 @@ export default function Home()
 
             <Link href="/categories" asChild>
                 <Pressable style={{ padding: 12, borderWidth: 1, borderRadius: 10}}>
-                    <Text>Browse Categories</Text>
+                    <Text> Tap Here To Browse Resources </Text>
                 </Pressable>
             </Link>
         </View>

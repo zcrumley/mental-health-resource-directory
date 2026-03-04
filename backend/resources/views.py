@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
 from .models import Resource
 from .serializers import ResourceSerializer
@@ -18,3 +20,10 @@ class ResourceViewSet(viewsets.ModelViewSet):
     serializer_class = ResourceSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ResourceFilter
+
+# added endpoint 
+@api_view(["GET"])
+def categories_list(request):
+    choices = Resource._meta.get_field("category").choices
+    data = [{"key": key, "label": label} for key, label in choices]
+    return Response(data)
