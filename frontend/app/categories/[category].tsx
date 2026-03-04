@@ -3,6 +3,10 @@ import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { getResourcesByCategory, type Resource } from "../../src/lib/api";
 import ResourceCard from "../../components/ResourceCard";
+import Screen from "../../components/Screen";
+
+// this screen shows list of resources after category was selected
+
 
 export default function CategoryScreen()
 {
@@ -31,9 +35,9 @@ export default function CategoryScreen()
     if (error)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <Text style={{ color: "red" }}>{error}</Text>
-            </View>
+            </Screen>
         );
     }
 

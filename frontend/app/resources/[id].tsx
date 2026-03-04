@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, ScrollView, Pressable, Linking } from "react-native";
+import { Text, ActivityIndicator, ScrollView, Pressable, Linking } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { getResourceById, type Resource } from "../../src/lib/api";
+import Screen from "../../components/Screen";
 
 export default function ResourceScreen()
 {
@@ -11,14 +12,12 @@ export default function ResourceScreen()
     const [resource, setResource] = useState<Resource | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // phone helper
     function callPhone(phone: string)
     {
         const digits = phone.replace(/[^\d+]/g, "");
         Linking.openURL(`tel:${digits}`);
     }
 
-    // website helper
     function openWebsite(url: string)
     {
         if (!url.startsWith("http"))
@@ -29,14 +28,12 @@ export default function ResourceScreen()
         Linking.openURL(url);
     }
 
-    //maps helper
     function openMaps(address: string)
     {
         const encoded = encodeURIComponent(address);
         const url = `https://www.google.com/maps/search/?api=1&query=${encoded}`;
         Linking.openURL(url);
     }
-
 
     useEffect(() =>
     {
@@ -58,52 +55,54 @@ export default function ResourceScreen()
     if (error)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <Text style={{ color: "red" }}>{error}</Text>
-            </View>
+            </Screen>
         );
     }
 
     if (!resource)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <ActivityIndicator />
-            </View>
+            </Screen>
         );
     }
 
     return (
-        <ScrollView contentContainerStyle={{ padding: 16, gap: 8 }}>
-            <Text style={{ fontSize: 22, fontWeight: "700" }}>
-                {resource.name}
-            </Text>
+        <Screen>
+            <ScrollView contentContainerStyle={{ gap: 8, paddingBottom: 24 }}>
+                <Text style={{ fontSize: 22, fontWeight: "700" }}>
+                    {resource.name}
+                </Text>
 
-            {resource.description ? <Text>{resource.description}</Text> : null}
+                {resource.description ? <Text>{resource.description}</Text> : null}
 
-            {resource.phone ? (
-                <Pressable onPress={() => callPhone(resource.phone)}>
-                    <Text style={{ textDecorationLine: "underline" }}>
-                        {resource.phone}
-                    </Text>
-                </Pressable>
-            ) : null}
+                {resource.phone ? (
+                    <Pressable onPress={() => callPhone(resource.phone!)}>
+                        <Text style={{ textDecorationLine: "underline" }}>
+                            {resource.phone}
+                        </Text>
+                    </Pressable>
+                ) : null}
 
-            {resource.address ? (
-                 <Pressable onPress={() => openMaps(resource.address)}>
-                     <Text style={{ }}>
-                     {resource.address}
-                     </Text>
-                 </Pressable>
-) : null}
+                {resource.address ? (
+                    <Pressable onPress={() => openMaps(resource.address!)}>
+                        <Text style={{textDecorationLine: "underline"}}>
+                            {resource.address}
+                        </Text>
+                    </Pressable>
+                ) : null}
 
-            {resource.website ? (
-                <Pressable onPress={() => openWebsite(resource.website)}>
-                    <Text style={{ textDecorationLine: "underline" }}>
-                      {resource.website}
-                    </Text>
-                </Pressable>
-            ) : null}
-        </ScrollView>
+                {resource.website ? (
+                    <Pressable onPress={() => openWebsite(resource.website!)}>
+                        <Text style={{ }}>
+                            {resource.website}
+                        </Text>
+                    </Pressable>
+                ) : null}
+            </ScrollView>
+        </Screen>
     );
 }

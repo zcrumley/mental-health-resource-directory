@@ -1,10 +1,11 @@
 import { Link } from "expo-router";
 import { View, Text, Pressable } from "react-native";
+import Screen from "../components/Screen";
 
 export default function Home()
 {
     return (
-        <View style={{ padding: 16, gap: 12}}>
+        <Screen>
             <Text style={{ fontSize: 22, fontWeight: "700" }}>
                 Resource Directory
             </Text>
@@ -14,6 +15,7 @@ export default function Home()
                     <Text> Tap Here To Browse Resources </Text>
                 </Pressable>
             </Link>
-        </View>
+            </Screen>
+        
     )
 } 
