@@ -84,15 +84,15 @@ export default function ResourceScreen()
             {resource.phone ? (
                 <Pressable onPress={() => callPhone(resource.phone)}>
                     <Text style={{ textDecorationLine: "underline" }}>
-                        Phone: {resource.phone}
+                        {resource.phone}
                     </Text>
                 </Pressable>
             ) : null}
 
             {resource.address ? (
                  <Pressable onPress={() => openMaps(resource.address)}>
-                     <Text style={{ textDecorationLine: "underline" }}>
-                  Address: {resource.address}
+                     <Text style={{ }}>
+                     {resource.address}
                      </Text>
                  </Pressable>
 ) : null}

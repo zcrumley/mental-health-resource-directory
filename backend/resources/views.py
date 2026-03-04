@@ -1,9 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
 from .models import Resource
 from .serializers import ResourceSerializer
+
 
 
 class ResourceFilter(FilterSet):
@@ -18,8 +20,11 @@ class ResourceFilter(FilterSet):
 class ResourceViewSet(viewsets.ModelViewSet):
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
-    filter_backends = [DjangoFilterBackend]
+   
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = ResourceFilter
+
+    search_fields = ["name", "description", "address"]
 
 # added endpoint 
 @api_view(["GET"])
