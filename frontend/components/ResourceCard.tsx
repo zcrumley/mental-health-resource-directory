@@ -1,10 +1,9 @@
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import type { Resource } from "../src/lib/api";
+import { theme } from "../src/styles/theme";
 
-type Props = {
-    resource: Resource;
-};
+type Props = { resource: Resource };
 
 export default function ResourceCard({ resource }: Props)
 {
@@ -16,22 +15,45 @@ export default function ResourceCard({ resource }: Props)
             }}
             asChild
         >
-            <Pressable
-                style={{
-                    padding: 12,
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    marginBottom: 12
-                }}
-            >
-                <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                    {resource.name}
-                </Text>
+            <Pressable style={styles.card}>
+                <Text style={styles.title}>{resource.name}</Text>
 
                 {resource.address ? (
-                    <Text>{resource.address}</Text>
+                    <Text style={styles.sub}>{resource.address}</Text>
                 ) : null}
             </Pressable>
         </Link>
     );
 }
+
+const styles = StyleSheet.create({
+    card:
+    {
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.lg,
+        padding: theme.spacing.lg,
+
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+
+        marginBottom: theme.spacing.md,
+
+        shadowColor: "#000",
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 3 },
+        elevation: 2
+    },
+    title:
+    {
+        fontSize: 16,
+        fontWeight: "800",
+        color: theme.colors.green
+    },
+    sub:
+    {
+        marginTop: 6,
+        color: theme.colors.muted
+    }
+    
+});

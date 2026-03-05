@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
-import { Text, ActivityIndicator, ScrollView, Pressable, Linking } from "react-native";
+import {
+    Text,
+    ActivityIndicator,
+    ScrollView,
+    Pressable,
+    Linking,
+    View,
+    StyleSheet
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { getResourceById, type Resource } from "../../src/lib/api";
 import Screen from "../../components/Screen";
+import { theme } from "../../src/styles/theme";
 
 export default function ResourceScreen()
 {
@@ -56,7 +65,7 @@ export default function ResourceScreen()
     {
         return (
             <Screen>
-                <Text style={{ color: "red" }}>{error}</Text>
+                <Text style={styles.error}>{error}</Text>
             </Screen>
         );
     }
@@ -72,37 +81,178 @@ export default function ResourceScreen()
 
     return (
         <Screen>
-            <ScrollView contentContainerStyle={{ gap: 8, paddingBottom: 24 }}>
-                <Text style={{ fontSize: 22, fontWeight: "700" }}>
+            <ScrollView contentContainerStyle={styles.container}>
+
+                <Text style={styles.title}>
                     {resource.name}
                 </Text>
 
-                {resource.description ? <Text>{resource.description}</Text> : null}
+                
 
-                {resource.phone ? (
-                    <Pressable onPress={() => callPhone(resource.phone!)}>
-                        <Text style={{ textDecorationLine: "underline" }}>
-                            {resource.phone}
-                        </Text>
-                    </Pressable>
-                ) : null}
+                {/* Details card */}
+                <View style={styles.card}>
 
-                {resource.address ? (
-                    <Pressable onPress={() => openMaps(resource.address!)}>
-                        <Text style={{textDecorationLine: "underline"}}>
-                            {resource.address}
+                    {resource.description ? (
+                        <Text style={styles.description}>
+                            {resource.description}
                         </Text>
-                    </Pressable>
-                ) : null}
+                    ) : (
+                        <Text style={styles.muted}>
+                            No description available.
+                        </Text>
+                    )}
 
-                {resource.website ? (
-                    <Pressable onPress={() => openWebsite(resource.website!)}>
-                        <Text style={{ }}>
-                            {resource.website}
-                        </Text>
-                    </Pressable>
-                ) : null}
+                    {resource.phone ? (
+                        <View style={styles.detailRow}>
+                            <Text style={styles.detailLabel}>Phone</Text>
+                            <Text style={styles.detailValue}>{resource.phone}</Text>
+                        </View>
+                    ) : null}
+
+                    {resource.address ? (
+                        <View style={styles.detailRow}>
+                            <Text style={styles.detailLabel}>Address</Text>
+                            <Text style={styles.detailValue}>{resource.address}</Text>
+                        </View>
+                    ) : null}
+
+                    {resource.website ? (
+                        <View style={styles.detailRow}>
+                            <Text style={styles.detailLabel}>Website</Text>
+                            <Text style={styles.detailValue}>{resource.website}</Text>
+                        </View>
+                    ) : null}
+
+                </View>
+
+                {/* Actions */}
+                <View style={styles.actionsRow}>
+
+                    {resource.phone ? (
+                        <Pressable
+                            onPress={() => callPhone(resource.phone!)}
+                            style={({ pressed }) => [
+                                styles.actionBtn,
+                                pressed && styles.pressed
+                            ]}
+                        >
+                            <Text style={styles.actionText}>Call</Text>
+                        </Pressable>
+                    ) : null}
+
+                    {resource.address ? (
+                        <Pressable
+                            onPress={() => openMaps(resource.address!)}
+                            style={({ pressed }) => [
+                                styles.actionBtn,
+                                pressed && styles.pressed
+                            ]}
+                        >
+                            <Text style={styles.actionText}>Directions</Text>
+                        </Pressable>
+                    ) : null}
+
+                    {resource.website ? (
+                        <Pressable
+                            onPress={() => openWebsite(resource.website!)}
+                            style={({ pressed }) => [
+                                styles.actionBtn,
+                                pressed && styles.pressed
+                            ]}
+                        >
+                            <Text style={styles.actionText}>Website</Text>
+                        </Pressable>
+                    ) : null}
+
+                </View>
+
             </ScrollView>
         </Screen>
     );
 }
+
+const styles = StyleSheet.create({
+    container:
+    {
+        gap: theme.spacing.md,
+        paddingBottom: 24
+    },
+
+    title:
+    {
+        fontSize: 22,
+        fontWeight: "900",
+        color: theme.colors.green
+    },
+
+    actionsRow:
+    {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 10
+    },
+
+    actionBtn:
+    {
+        backgroundColor: theme.colors.greenSoft,
+        borderRadius: theme.radius.md,
+        paddingHorizontal: 14,
+        paddingVertical: 10,
+        borderWidth: 1,
+        borderColor: theme.colors.border
+    },
+
+    pressed:
+    {
+        opacity: 0.85
+    },
+
+    actionText:
+    {
+        color: theme.colors.green,
+        fontWeight: "800"
+    },
+
+    card:
+    {
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.lg,
+        padding: theme.spacing.lg,
+        borderWidth: 1,
+        borderColor: theme.colors.border
+    },
+
+    description:
+    {
+        color: theme.colors.text,
+        lineHeight: 20
+    },
+
+    muted:
+    {
+        color: theme.colors.muted
+    },
+
+    detailRow:
+    {
+        marginTop: 12
+    },
+
+    detailLabel:
+    {
+        fontSize: 12,
+        fontWeight: "800",
+        color: theme.colors.muted,
+        marginBottom: 4
+    },
+
+    detailValue:
+    {
+        color: theme.colors.text
+    },
+
+    error:
+    {
+        color: theme.colors.danger
+    }
+});

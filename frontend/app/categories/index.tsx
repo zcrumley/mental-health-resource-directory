@@ -17,9 +17,11 @@ import {
     type Resource
 } from "../../src/lib/api";
 import ResourceCard from "../../components/ResourceCard";
+import Screen from "../../components/Screen";
+import { theme } from "../../src/styles/theme";
+import Header from "../../components/Header";
 
 //this screen shows list of resource categories and the search bar
-
 export default function Categories()
 {
     const [categories, setCategories] = useState<Category[] | null>(null);
@@ -63,28 +65,30 @@ export default function Categories()
     if (error)
     {
         return (
-            <View style={styles.screen}>
+            <Screen>
                 <Text style={styles.errorText}>{error}</Text>
-            </View>
+            </Screen>
         );
     }
 
     if (!categories)
     {
         return (
-            <View style={styles.screen}>
+            <Screen>
                 <ActivityIndicator />
                 <Text style={styles.subtleText}>Loading categories…</Text>
-            </View>
+            </Screen>
         );
     }
 
     const trimmed = query.trim();
 
     return (
-        <View style={styles.screen}>
-            <Text style={styles.title}>Resources</Text>
-            <Text style={styles.subtitle}>Find The Help You Need</Text>
+        <Screen>
+
+            {/* not really liking how thi header one looks right now */}
+
+           {/* <Header title="Resources" subtitle="Find the help you need" />*/}
 
             {/* Search bar */}
             <View style={styles.searchWrap}>
@@ -92,7 +96,7 @@ export default function Categories()
                     value={query}
                     onChangeText={setQuery}
                     placeholder="Search resources…"
-                    placeholderTextColor="#8A8A8A"
+                    placeholderTextColor={theme.colors.muted}
                     autoCorrect={false}
                     autoCapitalize="none"
                     style={[
@@ -158,60 +162,48 @@ export default function Categories()
                     ))}
                 </View>
             )}
-        </View>
+        </Screen>
     );
 }
 
 const styles = StyleSheet.create({
-    screen:
-    {
-        flex: 1,
-        backgroundColor: "#F6F7FB",
-        padding: 16
-    },
-
     title:
     {
         fontSize: 26,
         fontWeight: "800",
-        color: "#111"
+        color: theme.colors.green
     },
 
     subtitle:
     {
         marginTop: 4,
         marginBottom: 14,
-        color: "#555",
+        color: theme.colors.muted,
         fontSize: 14
     },
 
     errorText:
     {
-        color: "#B00020",
+        color: theme.colors.danger,
         fontSize: 14
     },
 
     subtleText:
     {
-        color: "#666",
+        color: theme.colors.muted,
         fontSize: 13,
         marginTop: 8
     },
 
     searchWrap:
     {
-        backgroundColor: "#FFFFFF",
-        borderRadius: 14,
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.md,
         paddingHorizontal: 12,
         flexDirection: "row",
         alignItems: "center",
         borderWidth: 1,
-        borderColor: "#E3E6EF",
-        shadowColor: "#000",
-        shadowOpacity: 0.06,
-        shadowRadius: 10,
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 2
+        borderColor: theme.colors.border
     },
 
     searchInput:
@@ -219,21 +211,21 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 12,
         fontSize: 15,
-        color: "#111"
+        color: theme.colors.text
     },
 
     clearBtn:
     {
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        borderRadius: 10,
-        backgroundColor: "#F0F2F7"
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderRadius: theme.radius.sm,
+        backgroundColor: theme.colors.greenSoft
     },
 
     clearBtnText:
     {
         fontSize: 16,
-        color: "#333"
+        color: theme.colors.green
     },
 
     loadingRow:
@@ -246,19 +238,19 @@ const styles = StyleSheet.create({
 
     emptyBox:
     {
-        backgroundColor: "#FFFFFF",
-        borderRadius: 14,
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.md,
         padding: 14,
         marginTop: 12,
         borderWidth: 1,
-        borderColor: "#E3E6EF"
+        borderColor: theme.colors.border
     },
 
     emptyTitle:
     {
         fontSize: 16,
         fontWeight: "700",
-        color: "#111"
+        color: theme.colors.text
     },
 
     listPad:
@@ -275,29 +267,24 @@ const styles = StyleSheet.create({
 
     catCard:
     {
-        backgroundColor: "#FFFFFF",
-        borderRadius: 16,
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.lg,
         padding: 14,
         borderWidth: 1,
-        borderColor: "#E3E6EF",
-        shadowColor: "#000",
-        shadowOpacity: 0.06,
-        shadowRadius: 10,
-        shadowOffset: { width: 0, height: 4 },
-        elevation: 2
+        borderColor: theme.colors.border
     },
 
     catLabel:
     {
         fontSize: 16,
         fontWeight: "800",
-        color: "#111"
+        color: theme.colors.green
     },
 
     catHint:
     {
         marginTop: 4,
-        color: "#6B7280",
+        color: theme.colors.muted,
         fontSize: 12
     }
 });

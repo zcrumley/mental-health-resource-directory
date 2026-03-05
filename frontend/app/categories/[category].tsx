@@ -44,15 +44,16 @@ export default function CategoryScreen()
     if (!resources)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <ActivityIndicator />
-            </View>
+            </Screen>
         );
     }
 
     return (
+    <Screen>
         <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
-            <Text style={{ fontSize: 20, fontWeight: "700" }}>
+            <Text style={{ fontSize: 50, fontWeight: "700" }}>
                 {categoryKey.toUpperCase()}
             </Text>
 
@@ -62,5 +63,6 @@ export default function CategoryScreen()
                 resources.map((r) => <ResourceCard key={r.id} resource={r} />)
             )}
         </ScrollView>
+    </Screen>
     );
 }
