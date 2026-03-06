@@ -9,7 +9,7 @@ export default function Home()
     return (
         <Screen>
             <Text style={styles.title}>
-                Resource Directory
+                Community Resource Directory
             </Text>
 
             <Link href="/categories" asChild>
@@ -34,7 +34,7 @@ export default function Home()
 const styles = StyleSheet.create({
     title:
     {
-        fontSize: 26,
+        fontSize: 36,
         fontWeight: "800",
         color: theme.colors.green,
         padding: 14
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     text:
     {
         fontSize: 16,
-        color: theme.colors.green
+        fontWeight: "800",
+        color: "#E6E6E6"
     },
 
     catHint:

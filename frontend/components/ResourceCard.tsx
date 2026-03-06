@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     {
         fontSize: 16,
         fontWeight: "800",
-        color: theme.colors.green
+        color: "#E6E6E6"
     },
     sub:
     {

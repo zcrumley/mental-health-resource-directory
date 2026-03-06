@@ -53,7 +53,7 @@ export default function CategoryScreen()
     return (
     <Screen>
         <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
-            <Text style={{ fontSize: 50, fontWeight: "700", color: "white" }}>
+            <Text style={{ fontSize: 50, fontWeight: "700", color: "#22C55E" }}>
                 {categoryKey.toUpperCase()}
             </Text>
 
