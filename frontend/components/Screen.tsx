@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { theme } from "../src/styles/theme";
 
-console.log("THEME_BG:", theme.colors.bg);
 
 export default function Screen({ children }: { children: React.ReactNode })
 {

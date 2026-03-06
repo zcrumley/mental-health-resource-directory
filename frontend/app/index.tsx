@@ -1,21 +1,67 @@
 import { Link } from "expo-router";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import Screen from "../components/Screen";
+import { theme } from "../src/styles/theme";
+
 
 export default function Home()
 {
     return (
         <Screen>
-            <Text style={{ fontSize: 22, fontWeight: "700" }}>
+            <Text style={styles.title}>
                 Resource Directory
             </Text>
 
             <Link href="/categories" asChild>
-                <Pressable style={{ padding: 12, borderWidth: 1, borderRadius: 10}}>
-                    <Text> Tap Here To Browse Resources </Text>
+                <Pressable style={styles.cards}>
+                    <Text style={styles.text}>  Browse Resources </Text>
+                    <Text style={styles.catHint}>Tap to view</Text>
                 </Pressable>
             </Link>
+
+            <Link href="/categories" asChild>
+                <Pressable style={styles.cards}>
+                    <Text style={styles.text}> Emergency Phone Numbers </Text>
+                    <Text style={styles.catHint}>Tap to view</Text>
+                </Pressable>
+            </Link>
+
             </Screen>
         
     )
 } 
+
+const styles = StyleSheet.create({
+    title:
+    {
+        fontSize: 26,
+        fontWeight: "800",
+        color: theme.colors.green,
+        padding: 14
+
+    },
+
+    cards:
+    {
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.radius.lg,
+        padding: 14,
+        borderWidth: 1,
+        borderColor: theme.colors.border, 
+        color: theme.colors.green
+    },
+
+    text:
+    {
+        fontSize: 16,
+        color: theme.colors.green
+    },
+
+    catHint:
+    {
+        marginTop: 4,
+        color: theme.colors.muted,
+        fontSize: 12, 
+        paddingLeft: 10
+    }
+});
