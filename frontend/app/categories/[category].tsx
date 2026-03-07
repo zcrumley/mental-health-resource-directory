@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, ScrollView } from "react-native";
+import { Text, ActivityIndicator, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { getResourcesByCategory, type Resource } from "../../src/lib/api";
 import ResourceCard from "../../components/ResourceCard";
+import Screen from "../../components/Screen";
+import SearchBar from "../../components/SearchBar";
+
+// this screen shows list of resources after category was selected
 
 export default function CategoryScreen()
 {
@@ -11,6 +15,7 @@ export default function CategoryScreen()
 
     const [resources, setResources] = useState<Resource[] | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [query, setQuery] = useState("");
 
     useEffect(() =>
     {
@@ -31,32 +36,57 @@ export default function CategoryScreen()
     if (error)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <Text style={{ color: "red" }}>{error}</Text>
-            </View>
+            </Screen>
         );
     }
 
     if (!resources)
     {
         return (
-            <View style={{ padding: 16 }}>
+            <Screen>
                 <ActivityIndicator />
-            </View>
+            </Screen>
         );
     }
 
-    return (
-        <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
-            <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                {categoryKey.toUpperCase()}
-            </Text>
+    const filteredResources = resources.filter((r) =>
+    {
+        const q = query.trim().toLowerCase();
 
-            {resources.length === 0 ? (
-                <Text>No resources found for this category.</Text>
-            ) : (
-                resources.map((r) => <ResourceCard key={r.id} resource={r} />)
-            )}
-        </ScrollView>
+        if (!q)
+        {
+            return true;
+        }
+
+        return (
+            r.name.toLowerCase().includes(q) ||
+            r.description?.toLowerCase().includes(q) ||
+            r.address?.toLowerCase().includes(q)
+        );
+    });
+
+    return (
+        <Screen>
+            <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+                <Text style={{ fontSize: 50, fontWeight: "700", color: "#22C55E" }}>
+                    {categoryKey.toUpperCase()}
+                </Text>
+
+                <SearchBar
+                    value={query}
+                    onChangeText={setQuery}
+                    onClear={() => setQuery("")}
+                    placeholder="Search this category..."
+                />
+
+                {filteredResources.length === 0 ? (
+                    <Text>No resources found for this search.</Text>
+                ) : (
+                    filteredResources.map((r) => <ResourceCard key={r.id} resource={r} />)
+                )}
+            </ScrollView>
+        </Screen>
     );
 }
