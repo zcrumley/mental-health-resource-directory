@@ -4,10 +4,8 @@ import {
     Text,
     ActivityIndicator,
     Pressable,
-    TextInput,
     FlatList,
     StyleSheet,
-    Platform
 } from "react-native";
 import { Link } from "expo-router";
 import {
@@ -20,6 +18,7 @@ import ResourceCard from "../../components/ResourceCard";
 import Screen from "../../components/Screen";
 import { theme } from "../../src/styles/theme";
 import Header from "../../components/Header";
+import SearchBar from "../../components/SearchBar";
 
 //this screen shows list of resource categories and the search bar
 export default function Categories()
@@ -91,33 +90,16 @@ export default function Categories()
            {/* <Header title="Resources" subtitle="Find the help you need" />*/}
 
             {/* Search bar */}
-            <View style={styles.searchWrap}>
-                <TextInput
-                    value={query}
-                    onChangeText={setQuery}
-                    placeholder="Search resources…"
-                    placeholderTextColor={theme.colors.muted}
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    style={[
-                        styles.searchInput,
-                        Platform.OS === "web" ? ({ outline: "none" } as any) : null
-                    ]}
-                />
-
-                {query.length > 0 && (
-                    <Pressable
-                        onPress={() =>
-                        {
-                            setQuery("");
-                            setResults([]);
-                        }}
-                        style={styles.clearBtn}
-                    >
-                        <Text style={styles.clearBtnText}>✕</Text>
-                    </Pressable>
-                )}
-            </View>
+            <SearchBar
+                value={query}
+                onChangeText={setQuery}
+                onClear={() =>
+                {
+                    setQuery("");
+                    setResults([]);
+                }}
+                placeholder="Search resources..."
+            />
 
             {searching ? (
                 <View style={styles.loadingRow}>
