@@ -26,7 +26,7 @@ export default function Home()
                 </Pressable>
             </Link>
 
-            </Screen>
+        </Screen>
         
     )
 } 
@@ -48,13 +48,14 @@ const styles = StyleSheet.create({
         padding: 14,
         borderWidth: 1,
         borderColor: theme.colors.border, 
-        color: theme.colors.green
+        color: theme.colors.green,
+        marginBottom: 16,
     },
 
     text:
     {
-        fontSize: 16,
-        fontWeight: "800",
+        fontSize: 26,
+        fontWeight: "600",
         color: "#E6E6E6"
     },
 
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     {
         marginTop: 4,
         color: theme.colors.muted,
-        fontSize: 12, 
-        paddingLeft: 10
+        fontSize: 16, 
+        paddingLeft: 18
     }
 });

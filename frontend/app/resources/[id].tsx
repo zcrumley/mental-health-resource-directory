@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
 
     title:
     {
-        fontSize: 22,
+        fontSize: 26,
         fontWeight: "900",
         color: theme.colors.green
     },
@@ -225,7 +225,8 @@ const styles = StyleSheet.create({
     description:
     {
         color: theme.colors.text,
-        lineHeight: 20
+        lineHeight: 20,
+        fontSize: 18
     },
 
     muted:
@@ -240,8 +241,8 @@ const styles = StyleSheet.create({
 
     detailLabel:
     {
-        fontSize: 12,
-        fontWeight: "800",
+        fontSize: 16,
+        fontWeight: "600",
         color: theme.colors.muted,
         marginBottom: 4
     },

@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     title:
     {
         fontSize: 26,
-        fontWeight: "800",
+        fontWeight: "600",
         color: theme.colors.green
     },
 
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     emptyTitle:
     {
         fontSize: 16,
-        fontWeight: "700",
+        fontWeight: "600",
         color: theme.colors.text
     },
 
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     grid:
     {
         marginTop: 14,
-        gap: 12
+        gap: 16
     },
 
     catCard:
@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
 
     catLabel:
     {
-        fontSize: 16,
-        fontWeight: "800",
+        fontSize: 26,
+        fontWeight: "600",
         color: theme.colors.green
     },
 
@@ -285,6 +285,6 @@ const styles = StyleSheet.create({
     {
         marginTop: 4,
         color: theme.colors.muted,
-        fontSize: 12
+        fontSize: 16
     }
 });
