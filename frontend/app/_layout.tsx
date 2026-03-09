@@ -9,7 +9,6 @@ export default function RootLayout()
                 headerTitle: "",
                 headerShadowVisible: false,
                 headerTransparent: true,
-                headerBackTitleVisible: false,
                 headerTintColor: theme.colors.green,
             }}
         />
