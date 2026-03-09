@@ -19,7 +19,7 @@ export default function Home()
                 </Pressable>
             </Link>
 
-            <Link href="/categories" asChild>
+            <Link href="/phone-numbers" asChild>
                 <Pressable style={styles.cards}>
                     <Text style={styles.text}> Emergency Phone Numbers </Text>
                     <Text style={styles.catHint}>Tap to view</Text>
