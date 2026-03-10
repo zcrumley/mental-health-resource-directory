@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
 
     catLabel:
     {
-        fontSize: 26,
+        fontSize: 36,
         fontWeight: "600",
         color: theme.colors.green
     },

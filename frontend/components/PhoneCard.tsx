@@ -11,10 +11,10 @@ export default function PhoneCard({ phoneNumber, title }: Props)
 {
     return (
         <Pressable style={styles.card} onPress={() => Linking.openURL("tel:" + phoneNumber)}>
-        <Text>
+        <Text style={styles.title}>
         {title}
         </Text>
-        <Text>
+        <Text style={styles.sub}>
         {phoneNumber}
         </Text>
          </Pressable>
@@ -42,5 +42,18 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         shadowOffset: { width: 0, height: 3 },
         elevation: 2
+    },
+       title:
+    {
+        fontSize: 36,
+        fontWeight: "600",
+        color: "#E6E6E6"
+    },
+
+     sub:
+    {
+        fontSize: 36,
+        marginTop: 6,
+        color: theme.colors.muted
     }
 });

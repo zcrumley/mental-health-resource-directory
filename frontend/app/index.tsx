@@ -34,10 +34,11 @@ export default function Home()
 const styles = StyleSheet.create({
     title:
     {
-        fontSize: 36,
+        fontSize: 50,
         fontWeight: "800",
         color: theme.colors.green,
-        padding: 14
+        padding: 14,
+        textDecorationLine: "underline",
 
     },
 
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
 
     text:
     {
-        fontSize: 26,
+        fontSize: 36,
         fontWeight: "600",
         color: "#E6E6E6"
     },
