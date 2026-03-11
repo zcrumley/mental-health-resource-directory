@@ -19,6 +19,8 @@ import Screen from "../../components/Screen";
 import { theme } from "../../src/styles/theme";
 import Header from "../../components/Header";
 import SearchBar from "../../components/SearchBar";
+import { subcategoryMap } from "../../src/constants/subcategories";
+
 
 //this screen shows list of resource categories and the search bar
 export default function Categories()
@@ -127,7 +129,11 @@ export default function Categories()
                 </>
             ) : (
                 <View style={styles.grid}>
-                    {categories.map((c) => (
+                    {categories.map((c) =>
+{
+    const subs = subcategoryMap[c.key] ?? [];
+
+                    return (
                         <Link
                             key={c.key}
                             href={{
@@ -138,10 +144,13 @@ export default function Categories()
                         >
                             <Pressable style={styles.catCard}>
                                 <Text style={styles.catLabel}>{c.label}</Text>
-                                <Text style={styles.catHint}>Tap to browse</Text>
+                                <Text style={styles.catHint}>
+                                    {subs.map((sub) => sub.label).join(" • ")}
+                                </Text>
                             </Pressable>
                         </Link>
-                    ))}
+                    );
+                })}
                 </View>
             )}
         </Screen>
@@ -267,6 +276,6 @@ const styles = StyleSheet.create({
     {
         marginTop: 4,
         color: theme.colors.muted,
-        fontSize: 16
+        fontSize: 18
     }
 });

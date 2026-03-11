@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -9,12 +10,34 @@ class Tag(models.Model):
 
 class Resource(models.Model):
     CATEGORY_CHOICES = [
-        ('food', 'Food'),
-        ('housing', 'Housing / Shelter'),
-        ('transportation', 'Transportation'),
-        ('medical', 'Medical'),
-        ('work', 'Work'),
-        ('social', 'Social'),
+        ("medical-mental-health", "Medical and Mental Health"),
+        ("housing-shelter", "Housing and Shelter"),
+        ("social-services", "Social Services"),
+        ("specialized-services", "Specialized Services"),
+    ]
+
+    SUBCATEGORY_CHOICES = [
+        ("psychiatric-inpatient", "Psychiatric Inpatient"),
+        ("general-medical", "General Medical"),
+        ("substance-use", "Substance Use"),
+        ("dental", "Dental"),
+
+        ("emergency-shelter", "Emergency Shelter"),
+        ("housing-rental-assistance", "Housing & Rental Assistance"),
+        ("temporary-transitional", "Temporary & Transitional"),
+
+        ("clothing", "Clothing"),
+        ("education-career-development", "Education & Career Development"),
+        ("financial", "Financial"),
+        ("legal", "Legal"),
+
+        ("deaf", "Deaf"),
+        ("domestic-violence", "Domestic Violence"),
+        ("hiv-aids", "HIV / AIDS"),
+        ("first-responders", "First Responders"),
+        ("idd", "IDD"),
+        ("pregnancy", "Pregnancy"),
+        ("veterans", "Veterans"),
     ]
 
     name = models.CharField(max_length=255)
@@ -22,7 +45,10 @@ class Resource(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     description = models.TextField(blank=True)
     website = models.URLField(blank=True)
+
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    subcategory = models.CharField(max_length=50, choices=SUBCATEGORY_CHOICES, blank=True)
+
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

@@ -13,6 +13,7 @@ export type Resource = {
     description?: string | null;
     website?: string | null;
     category: string;
+    subcategory?: string | null;
     tags?: string[];
 };
 
@@ -21,6 +22,26 @@ export async function getResourcesByCategory(category: string): Promise<Resource
 {
     const url = new URL(`${API_BASE_URL}/api/resources/`);
     url.searchParams.set("category", category);
+
+    const response = await fetch(url.toString());
+
+    if (!response.ok)
+    {
+        throw new Error(`Failed to fetch resources: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+// new helper
+export async function getResourcesByCategoryAndSubcategory(
+    category: string,
+    subcategory: string
+): Promise<Resource[]>
+{
+    const url = new URL(`${API_BASE_URL}/api/resources/`);
+    url.searchParams.set("category", category);
+    url.searchParams.set("subcategory", subcategory);
 
     const response = await fetch(url.toString());
 
