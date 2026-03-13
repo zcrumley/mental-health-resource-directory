@@ -5,8 +5,8 @@ export type SubcategoryItem = {
 
 export const subcategoryMap: Record<string, SubcategoryItem[]> = {
     "medical-mental-health": [
-        { key: "psychiatric-inpatient", label: "Psychiatric Inpatient" },
-        { key: "general-medical", label: "General Medical" },
+        { key: "mental health", label: "Psychiatric Inpatient" },
+        { key: "medical", label: "Medical" },
         { key: "substance-use", label: "Substance Use" },
         { key: "dental", label: "Dental" },
     ],
@@ -18,19 +18,21 @@ export const subcategoryMap: Record<string, SubcategoryItem[]> = {
     ],
 
     "social-services": [
+        {key: "transportation", label:"Transportation"},
         { key: "clothing", label: "Clothing" },
-        { key: "education-career-development", label: "Education & Career Development" },
+        { key: "education-employment", label: "Education & Employment" },
         { key: "financial", label: "Financial" },
         { key: "legal", label: "Legal" },
     ],
 
     "specialized-services": [
+        { key: "veterans", label: "Veterans" },
+        { key: "pregnancy", label: "Pregnancy" },
+        { key: "idd", label: "IDD" },
         { key: "deaf", label: "Deaf" },
         { key: "domestic-violence", label: "Domestic Violence" },
         { key: "hiv-aids", label: "HIV / AIDS" },
         { key: "first-responders", label: "First Responders" },
-        { key: "idd", label: "IDD" },
-        { key: "pregnancy", label: "Pregnancy" },
-        { key: "veterans", label: "Veterans" },
+  
     ],
 };

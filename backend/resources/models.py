@@ -17,17 +17,18 @@ class Resource(models.Model):
     ]
 
     SUBCATEGORY_CHOICES = [
-        ("psychiatric-inpatient", "Psychiatric Inpatient"),
-        ("general-medical", "General Medical"),
+        ("mental health ", "Mental Health"),
+        ("medical", " Medical"),
         ("substance-use", "Substance Use"),
         ("dental", "Dental"),
 
         ("emergency-shelter", "Emergency Shelter"),
         ("housing-rental-assistance", "Housing & Rental Assistance"),
         ("temporary-transitional", "Temporary & Transitional"),
-
+        
+        ("transportation", "Transportation"),
         ("clothing", "Clothing"),
-        ("education-career-development", "Education & Career Development"),
+        ("education-employment", "Education & Employment"),
         ("financial", "Financial"),
         ("legal", "Legal"),
 

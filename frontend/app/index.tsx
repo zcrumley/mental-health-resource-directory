@@ -8,9 +8,14 @@ export default function Home()
 {
     return (
         <Screen>
-            <Text style={styles.title}>
-                Community Resource Directory
-            </Text>
+        <Text>
+            <Text style={styles.title1}>C</Text>
+            <Text style={styles.title}>ommunity</Text>  
+                 <Text style={styles.title1}>R</Text> 
+                  <Text style={styles.title}>esource</Text> 
+                  <Text style={styles.title1}>D</Text> 
+                  <Text style={styles.title}>irectory</Text> 
+             </Text>
 
             <Link href="/categories" asChild>
                 <Pressable style={styles.cards}>
@@ -37,8 +42,18 @@ const styles = StyleSheet.create({
         fontSize: 50,
         fontWeight: "800",
         color: theme.colors.green,
-        padding: 14,
-        textDecorationLine: "underline",
+        paddingRight: 24,
+        /* textDecorationLine: "underline", */
+
+    },
+
+      title1:
+    {
+        fontSize: 100,
+        fontWeight: "800",
+        color: theme.colors.green,
+        padding: 5,
+       /* textDecorationLine: "underline", */
 
     },
 
