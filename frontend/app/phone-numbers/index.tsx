@@ -81,9 +81,9 @@ export default function PhoneNumbers()
 {
     return (
         <Screen>
-         <Text style={{ fontSize: 50, fontWeight: "700", color: "#22C55E", textDecorationLine: "underline"  }}>
-                Helpful Phone Numbers</Text>
         <ScrollView>
+            <Text style={{ fontSize: 50, fontWeight: "700", color: "#22C55E", textDecorationLine: "underline"  }}>
+            Helpful Phone Numbers</Text>
             {phoneGroups.map(group => (
             <View key={group.category}>
              <Text style={{ fontSize: 46, fontWeight: "700", color: "#22C55E" }}>{group.category}</Text>
